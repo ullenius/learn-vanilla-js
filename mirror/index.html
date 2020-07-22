@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Project Template</title>
+    <meta charset="utf-8" />
+
+	<style type="text/css">
+		body {
+			margin-left: auto;
+			margin-right: auto;
+			max-width: 40em;
+			width: 88%;
+		}
+
+		label {
+			font-weight: bold;
+		}
+
+		input,
+		textarea {
+			margin-bottom: 2em;
+			width: 100%;
+		}
+
+		textarea {
+			height: 12em;
+		}
+
+		/**
+		 * Simple Grid
+		 * https://gridbyexample.com/examples/example37/
+		 */
+
+		@media (min-width: 40em) {
+			.grid {
+				display: grid;
+				grid-gap: 2em;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+			}
+		}
+	</style>
+</head>
+<body>
+
+	<h1>Mirror Test</h1>
+
+	<div class="grid">
+		<div>
+			<label for="content">Content</label>
+			<textarea id="content"></textarea>
+		</div>
+		<div>
+			<strong>Preview</strong>
+			<div id="preview-content"></div>
+		</div>
+	</div>
+
+
+	<script src="mirror.js" type="module">
+	</script>
+
+</body>
+</html>
