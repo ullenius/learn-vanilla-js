@@ -3,6 +3,7 @@ function init() {
 
     var content = document.getElementById("content");
     content.addEventListener("input", mirror, content);
+    content.focus();
 }
 
 function mirror(event) {
