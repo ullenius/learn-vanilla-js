@@ -1,7 +1,6 @@
 "use strict";
 function plaintext(event) {
 
-    var passwordBox = document.getElementById("password");
     if (event.target.checked === true) {
         passwordsVisible(true);
     } else {
