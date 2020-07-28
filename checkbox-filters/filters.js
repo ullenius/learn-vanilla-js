@@ -13,17 +13,18 @@ function readGenres() {
     console.log(playlist);
     console.log(childNodes.length);
 
-    var genres = [];
+    var genres = Object.create(SimpleSet);
+    genres.init();
 
     childNodes.forEach(function(element) {
 
         if (element.attributes) {
             let value = element.attributes.getNamedItem("data-genre").value;
-            genres[value] = true;
+            genres.add(value);
         }
 
     });
-    return Object.keys(genres);
+    return genres.toArray();
 }
 
 function checkboxFactory(name) {
