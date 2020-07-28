@@ -31,6 +31,7 @@ function checkboxFactory(name) {
     const box = document.createElement("input");
     box.setAttribute("type", "checkbox");
     box.setAttribute("name", name);
+    box.setAttribute("checked", true);
     console.log(box);
     return box;
 }
@@ -48,6 +49,7 @@ function appendCheckboxes() {
     console.log(filters);
     var genres = readGenres();
     genres.forEach(function addBox(genre) {
+
         let box = checkboxFactory(genre);
         let label = labelFactory(genre);
         filters.appendChild(box);
