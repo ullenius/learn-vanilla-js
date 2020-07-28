@@ -23,6 +23,17 @@ function readGenres() {
     return genres;
 }
 
+function checkboxFactory(name) {
+
+    var box = document.createElement("input");
+    box.setAttribute("type", "checkbox");
+    box.setAttribute("name", name);
+    return box;
+}
+
+
 var genres = readGenres();
 console.log(genres);
+
+
 
