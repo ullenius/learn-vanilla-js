@@ -1,3 +1,6 @@
+import {SimpleSet} from "./set.js";
+"use strict";
+
 function init() {
 
 }
@@ -20,7 +23,7 @@ function readGenres() {
         }
 
     });
-    return genres;
+    return Object.keys(genres);
 }
 
 function checkboxFactory(name) {
@@ -30,7 +33,6 @@ function checkboxFactory(name) {
     box.setAttribute("name", name);
     return box;
 }
-
 
 var genres = readGenres();
 console.log(genres);
