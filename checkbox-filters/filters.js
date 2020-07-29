@@ -69,6 +69,16 @@ function appendCheckboxes() {
     filters.appendChild(label);
 }
 
+function readGenres() {
+    const genres = Object.create(SimpleSet);
+    genres.init();
+
+    songs.forEach(function(song) {
+        genres.add(song.genre);
+    });
+    return genres.toArray();
+}
+
 function checkboxFactory(name) {
 
     const box = document.createElement("input");
@@ -93,31 +103,12 @@ function filterGrammy(event) {
     display(second);
 }
 
-function display(songs) {
-
-    var playlist = document.querySelector("#playlist");
-    playlist.innerHTML = "";
-
-    songs.forEach(function append(element) {
-        const item = liFactory(element.song);
-        playlist.appendChild(item);
-    });
-}
 
 function liFactory(text) {
     const listItem = document.createElement("li");
     const textNode = document.createTextNode(text);
     listItem.appendChild(textNode);
     return listItem;
-}
-
-function filterByGrammy(arr) {
-
-    var results = arr.filter(function(song) {
-        if (song.grammy === grammy)
-            return true;
-    });
-    return results;
 }
 
 function filterSongs(event) {
@@ -130,6 +121,15 @@ function filterSongs(event) {
     display(second);
 }
 
+function filterByGrammy(arr) {
+
+    var results = arr.filter(function(song) {
+        if (song.grammy === grammy)
+            return true;
+    });
+    return results;
+}
+
 function filter() {
 
     var results = songs.filter(function filter(song) {
@@ -139,14 +139,15 @@ function filter() {
     return results;
 }
 
-function readGenres() {
-    const genres = Object.create(SimpleSet);
-    genres.init();
+function display(songs) {
 
-    songs.forEach(function(song) {
-        genres.add(song.genre);
+    var playlist = document.querySelector("#playlist");
+    playlist.innerHTML = "";
+
+    songs.forEach(function append(element) {
+        const item = liFactory(element.song);
+        playlist.appendChild(item);
     });
-    return genres.toArray();
 }
 
 window.onload = init;
