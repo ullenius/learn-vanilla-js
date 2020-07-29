@@ -2,11 +2,44 @@ import {SimpleSet} from "./set.js";
 "use strict";
 
 var songs = [];
+var genres = [];
 
 function init() {
     readPlaylist();
     appendCheckboxes();
     display(songs);
+
+    var arr = readGenres();
+    console.log(arr.length);
+    console.log(arr);
+
+    for (let i = 0; i < arr.length; i++) {
+        console.log(arr[i]);
+        genres[arr[i]] = true;
+    }
+
+    console.log("genres after for loop");
+    console.log(genres);
+}
+
+function filterSongs(event) {
+
+    var name = event.target.name;
+    var visible = event.target.checked; 
+    genres[name] = visible;
+    filter();
+}
+
+function filter() {
+
+    console.log("hello, this is filter");
+    var results = songs.filter(function(song) {
+        if (genres[song.genre])
+            return true;
+    });
+    console.log("results = ");
+    console.log(results);
+
 }
 
 function display(songs) {
@@ -58,8 +91,6 @@ function createSong(song, attributes) {
 }
 
 function readGenres() {
-    console.log("readgenres");
-
     const genres = Object.create(SimpleSet);
     genres.init();
 
@@ -75,7 +106,8 @@ function checkboxFactory(name) {
     box.setAttribute("type", "checkbox");
     box.setAttribute("name", name);
     box.setAttribute("checked", true);
-    console.log(box);
+    box.addEventListener("change", filterSongs);
+    //console.log(box);
     return box;
 }
 
