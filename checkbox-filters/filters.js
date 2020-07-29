@@ -4,9 +4,8 @@ import {SimpleSet} from "./set.js";
 var songs = [];
 
 function init() {
-    appendCheckboxes();
     readPlaylist();
-    console.log(songs);
+    appendCheckboxes();
 }
 
 function readPlaylist() {
@@ -29,7 +28,6 @@ function readPlaylist() {
             let item = createSong(song, attributes);
             songs.push(item);
         }
-
       });
 }
 
@@ -38,29 +36,20 @@ function createSong(song, attributes) {
     const entry = Object.create(null);
     entry.song = song;
     entry.grammy = attributes.grammy;
-    entry.genre = attributes.grammy;
+    entry.genre = attributes.genre;
 
     Object.freeze(entry);
     return entry;
 }
 
 function readGenres() {
-
-    var playlist = document.querySelector("#playlist");
-    var childNodes = playlist.childNodes;
-
-    console.log(playlist);
-    console.log(childNodes.length);
+    console.log("readgenres");
 
     const genres = Object.create(SimpleSet);
     genres.init();
 
-    childNodes.forEach(function(element) {
-
-        if (element.attributes) {
-            let value = element.attributes.getNamedItem("data-genre").value;
-            genres.add(value);
-        }
+    songs.forEach(function(song) {
+        genres.add(song.genre);
     });
     return genres.toArray();
 }
@@ -94,6 +83,11 @@ function appendCheckboxes() {
         filters.appendChild(box);
         filters.appendChild(label);
     });
+
+    let box = checkboxFactory("grammy");
+    let label = labelFactory("grammy");
+    filters.appendChild(box);
+    filters.appendChild(label);
 
 }
 
