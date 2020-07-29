@@ -3,6 +3,7 @@ import {SimpleSet} from "./set.js";
 
 var songs = [];
 var genres = [];
+var grammy = true;
 
 function init() {
     readPlaylist();
@@ -10,36 +11,52 @@ function init() {
     display(songs);
 
     var arr = readGenres();
-    console.log(arr.length);
-    console.log(arr);
 
     for (let i = 0; i < arr.length; i++) {
         console.log(arr[i]);
         genres[arr[i]] = true;
     }
-
-    console.log("genres after for loop");
     console.log(genres);
 }
 
-function filterSongs(event) {
+function filterGrammy(event) {
+    grammy = event.target.checked; // global variable
+    var results = filter(); // by genre
+    var second = filterByGrammy(results);
+    console.log("second");
+    console.log(second);
+    display(second);
+}
 
+function filterByGrammy(arr) {
+
+    var results = arr.filter(function(song) {
+        if (song.grammy === grammy)
+            return true;
+    });
+    return results;
+}
+
+function filterSongs(event) {
     var name = event.target.name;
     var visible = event.target.checked; 
     genres[name] = visible;
-    filter();
+    var results = filter();
+
+    console.log("filter songs...");
+    console.log(results);
+
+    var second = filterByGrammy(results);
+    display(second);
 }
 
 function filter() {
 
-    console.log("hello, this is filter");
     var results = songs.filter(function(song) {
         if (genres[song.genre])
             return true;
     });
-    console.log("results = ");
-    console.log(results);
-
+    return results;
 }
 
 function display(songs) {
@@ -71,7 +88,7 @@ function readPlaylist() {
 
             const attributes = {
                 genre : genre,
-                grammy : grammy
+                grammy : (grammy === "yes")
             };
             let item = createSong(song, attributes);
             songs.push(item);
@@ -132,6 +149,7 @@ function appendCheckboxes() {
     });
 
     let box = checkboxFactory("grammy");
+    box.addEventListener("change", filterGrammy);
     let label = labelFactory("grammy");
     filters.appendChild(box);
     filters.appendChild(label);
