@@ -6,6 +6,21 @@ var songs = [];
 function init() {
     readPlaylist();
     appendCheckboxes();
+    display(songs);
+}
+
+function display(songs) {
+
+    var playlist = document.querySelector("#playlist");
+    playlist.innerHTML = "";
+
+    songs.forEach(function append(element) {
+
+        let item = document.createElement("li");
+        let text = document.createTextNode(element.song);
+        item.appendChild(text);
+        playlist.appendChild(item);
+    });
 }
 
 function readPlaylist() {
