@@ -23,6 +23,7 @@ function init() {
         });
     }
     hideAll();
+    links[0].click(); // make tab active by default
 }
 
 function display(target, hidden) {
@@ -31,10 +32,8 @@ function display(target, hidden) {
 
     var index = target.indexOf("#") + 1;
     var anchor = target.substring(index);
-    console.log(anchor);
     var section = document.getElementById(anchor);
     section.className = style;
-    console.log(section);
 }
 
 window.onload = init;
