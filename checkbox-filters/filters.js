@@ -1,8 +1,47 @@
 import {SimpleSet} from "./set.js";
 "use strict";
 
+var songs = [];
+
 function init() {
     appendCheckboxes();
+    readPlaylist();
+    console.log(songs);
+}
+
+function readPlaylist() {
+
+    var playlist = document.querySelector("#playlist");
+    var childNodes = playlist.childNodes;
+
+    childNodes.forEach(function addSong(element) {
+
+        if (element.attributes) {
+
+            let song = element.textContent;
+            let genre = element.attributes.getNamedItem("data-genre").value;
+            let grammy = element.attributes.getNamedItem("data-grammy").value;
+
+            const attributes = {
+                genre : genre,
+                grammy : grammy
+            };
+            let item = createSong(song, attributes);
+            songs.push(item);
+        }
+
+      });
+}
+
+function createSong(song, attributes) {
+
+    const entry = Object.create(null);
+    entry.song = song;
+    entry.grammy = attributes.grammy;
+    entry.genre = attributes.grammy;
+
+    Object.freeze(entry);
+    return entry;
 }
 
 function readGenres() {
