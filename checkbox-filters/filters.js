@@ -17,55 +17,6 @@ function init() {
     }
 }
 
-function filterGrammy(event) {
-    grammy = event.target.checked; // global variable
-    var results = filter(); // by genre
-    var second = filterByGrammy(results);
-    display(second);
-}
-
-function filterByGrammy(arr) {
-
-    var results = arr.filter(function(song) {
-        if (song.grammy === grammy)
-            return true;
-    });
-    return results;
-}
-
-function filterSongs(event) {
-    var name = event.target.name;
-    var visible = event.target.checked; 
-    genres[name] = visible;
-    var results = filter();
-
-    var second = filterByGrammy(results);
-    display(second);
-}
-
-function filter() {
-
-    var results = songs.filter(function(song) {
-        if (genres[song.genre])
-            return true;
-    });
-    return results;
-}
-
-function display(songs) {
-
-    var playlist = document.querySelector("#playlist");
-    playlist.innerHTML = "";
-
-    songs.forEach(function append(element) {
-
-        let item = document.createElement("li");
-        let text = document.createTextNode(element.song);
-        item.appendChild(text);
-        playlist.appendChild(item);
-    });
-}
-
 function readPlaylist() {
 
     var playlist = document.querySelector("#playlist");
@@ -95,36 +46,8 @@ function createSong(song, attributes) {
     entry.song = song;
     entry.grammy = attributes.grammy;
     entry.genre = attributes.genre;
-
     Object.freeze(entry);
     return entry;
-}
-
-function readGenres() {
-    const genres = Object.create(SimpleSet);
-    genres.init();
-
-    songs.forEach(function(song) {
-        genres.add(song.genre);
-    });
-    return genres.toArray();
-}
-
-function checkboxFactory(name) {
-
-    const box = document.createElement("input");
-    box.setAttribute("type", "checkbox");
-    box.setAttribute("name", name);
-    box.setAttribute("checked", true);
-    box.addEventListener("change", filterSongs);
-    return box;
-}
-
-function labelFactory(name) {
-    var label = document.createElement("label");
-    label.setAttribute("for", name);
-    label.textContent = name;
-    return label;
 }
 
 function appendCheckboxes() {
@@ -144,7 +67,86 @@ function appendCheckboxes() {
     let label = labelFactory("grammy");
     filters.appendChild(box);
     filters.appendChild(label);
+}
 
+function checkboxFactory(name) {
+
+    const box = document.createElement("input");
+    box.setAttribute("type", "checkbox");
+    box.setAttribute("name", name);
+    box.setAttribute("checked", true);
+    box.addEventListener("change", filterSongs);
+    return box;
+}
+
+function labelFactory(name) {
+    const label = document.createElement("label");
+    label.setAttribute("for", name);
+    label.textContent = name;
+    return label;
+}
+
+function filterGrammy(event) {
+    grammy = event.target.checked; // global variable
+    var results = filter(); // by genre
+    var second = filterByGrammy(results);
+    display(second);
+}
+
+function display(songs) {
+
+    var playlist = document.querySelector("#playlist");
+    playlist.innerHTML = "";
+
+    songs.forEach(function append(element) {
+        const item = liFactory(element.song);
+        playlist.appendChild(item);
+    });
+}
+
+function liFactory(text) {
+    const listItem = document.createElement("li");
+    const textNode = document.createTextNode(text);
+    listItem.appendChild(textNode);
+    return listItem;
+}
+
+function filterByGrammy(arr) {
+
+    var results = arr.filter(function(song) {
+        if (song.grammy === grammy)
+            return true;
+    });
+    return results;
+}
+
+function filterSongs(event) {
+    var name = event.target.name;
+    var visible = event.target.checked; 
+    genres[name] = visible;
+    var results = filter();
+
+    var second = filterByGrammy(results);
+    display(second);
+}
+
+function filter() {
+
+    var results = songs.filter(function filter(song) {
+        if (genres[song.genre])
+            return true;
+    });
+    return results;
+}
+
+function readGenres() {
+    const genres = Object.create(SimpleSet);
+    genres.init();
+
+    songs.forEach(function(song) {
+        genres.add(song.genre);
+    });
+    return genres.toArray();
 }
 
 window.onload = init;
