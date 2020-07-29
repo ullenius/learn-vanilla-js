@@ -13,18 +13,14 @@ function init() {
     var arr = readGenres();
 
     for (let i = 0; i < arr.length; i++) {
-        console.log(arr[i]);
         genres[arr[i]] = true;
     }
-    console.log(genres);
 }
 
 function filterGrammy(event) {
     grammy = event.target.checked; // global variable
     var results = filter(); // by genre
     var second = filterByGrammy(results);
-    console.log("second");
-    console.log(second);
     display(second);
 }
 
@@ -42,9 +38,6 @@ function filterSongs(event) {
     var visible = event.target.checked; 
     genres[name] = visible;
     var results = filter();
-
-    console.log("filter songs...");
-    console.log(results);
 
     var second = filterByGrammy(results);
     display(second);
@@ -124,7 +117,6 @@ function checkboxFactory(name) {
     box.setAttribute("name", name);
     box.setAttribute("checked", true);
     box.addEventListener("change", filterSongs);
-    //console.log(box);
     return box;
 }
 
@@ -138,7 +130,6 @@ function labelFactory(name) {
 function appendCheckboxes() {
 
     var filters = document.getElementById("filters");
-    console.log(filters);
     var genres = readGenres();
     genres.forEach(function addBox(genre) {
 
