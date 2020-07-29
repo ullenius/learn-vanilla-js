@@ -7,8 +7,8 @@ function init() {
 
     for (let i = 0; i < links.length; i++) {
 
-        var target = link[i].href;
-        link[i].addEventListener("click", function show() {
+        let target = links[i].href;
+        links[i].addEventListener("click", function show() {
             display(target);
         });
     }
@@ -16,9 +16,13 @@ function init() {
 
 function display(target) {
 
-    var anchor = target.subString(1);
+    var index = target.indexOf("#");
+
+    var anchor = target.substring(index+1);
+    console.log(anchor);
     var section = document.getElementById(anchor);
-    section.style = ".hidden";
+    section.className = "hidden";
+    console.log(section);
 }
 
 window.onload = init;
