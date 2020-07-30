@@ -3,7 +3,6 @@
 function init() {
 
     var links = document.getElementsByTagName("a");
-    console.log(links);
     var arr = [];
 
     function hideAll() { 
