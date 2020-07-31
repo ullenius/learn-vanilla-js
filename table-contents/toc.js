@@ -6,13 +6,16 @@ function init() {
     var headings = document.getElementsByTagName("h2");
     var arr = [];
 
-    console.log(headings);
-
     for (let i = 0; i < headings.length; i++) {
-
         let text = headings[i].textContent;
-        arr.push(text);
+        let obj = {
+            header : text,
+            href : i.toString()
+        };
+        headings[i].id = obj.href;
+        arr.push(obj);
     }
+    console.log(arr);
 
     var ol = document.createElement("ol");
     toc.appendChild(ol);
@@ -20,12 +23,13 @@ function init() {
     arr.forEach(function makeToc(element) {
 
         let li = document.createElement("li");
-        let text = document.createTextNode(element);
-        li.appendChild(text);
+        let link = document.createElement("a");
+        link.href = "#" + element.href;
+        let text = document.createTextNode(element.header);
+        link.appendChild(text);
+        li.appendChild(link);
         ol.appendChild(li);
     });
-
-
 
 }
 
