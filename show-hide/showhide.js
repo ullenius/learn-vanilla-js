@@ -2,6 +2,8 @@
 
 function init() {
 
+    const HIDE = "Hide";
+    const SHOW = "Show";
     var button = document.getElementById("knapp");
     var section = document.getElementById("pirate-speak");
 
@@ -9,12 +11,12 @@ function init() {
 
         let caption = event.target.textContent;
 
-        if (caption === "Hide") {
+        if (caption === HIDE) {
             section.className = "hidden";
-            event.target.textContent = "Show";
+            event.target.textContent = SHOW;
         } else {
             section.className = "";
-            event.target.textContent = "Hide";
+            event.target.textContent = HIDE;
         }
     });
 
