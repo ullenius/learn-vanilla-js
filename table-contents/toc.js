@@ -24,8 +24,9 @@ function init() {
 
         let li = document.createElement("li");
         let link = document.createElement("a");
-        link.href = "#" + element.href;
         let text = document.createTextNode(element.header);
+
+        link.href = "#" + element.href;
         link.appendChild(text);
         li.appendChild(link);
         ol.appendChild(li);
