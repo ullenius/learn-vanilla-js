@@ -17,11 +17,11 @@ const monsterArr = [
 
 function init() {
 
-	var monsters = randomize(monsterArr);	
+    var monsters = randomize(monsterArr);	
     var monstersRemaining = monsters.length - 1;
     var board = document.getElementById("app");
     var table = document.createElement("table");
-	board.innerHTML = "";
+    board.innerHTML = "";
     board.appendChild(table);
 
     var row = table.insertRow();
@@ -53,7 +53,7 @@ function createDoor() {
      const img = document.createElement("img");
      img.setAttribute("src", "door.svg"); 
      img.setAttribute("alt", "Door");
-	return img;
+    return img;
 }
 
 function gameOver() {
