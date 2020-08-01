@@ -18,12 +18,10 @@ const monsterArr = [
 function init() {
 
 	var monsters = randomize(monsterArr);	
-	console.log(monsters);
-
     var monstersRemaining = monsters.length - 1;
-
     var board = document.getElementById("app");
     var table = document.createElement("table");
+	board.innerHTML = "";
     board.appendChild(table);
 
     var row = table.insertRow();
@@ -34,24 +32,28 @@ function init() {
         }
         let cell = row.insertCell();
      
-     let img = document.createElement("img");
-        img.setAttribute("src", "door.svg"); 
-        img.setAttribute("alt", "Door");
-        img.addEventListener("click", function reveal(event) {
-            let monster = monsters[i];
-            if (monster === "sock!") {
-                gameOver();
-            }
-            else {
-                event.target.src = monster;
-                monstersRemaining--;
-                if (monstersRemaining === 0) {
-                    won();
-                }
+		 let img = createDoor();
+		 img.addEventListener("click", function reveal(event) {
+			let monster = monsters[i];
+			if (monster === "sock!") {
+					gameOver();
+			} else {
+				event.target.src = monster;
+				monstersRemaining--;
+				if (monstersRemaining === 0) {
+					won();
+				}
             }
         });
-        cell.appendChild(img);
+		cell.appendChild(img);
     }
+}
+
+function createDoor() {
+     const img = document.createElement("img");
+     img.setAttribute("src", "door.svg"); 
+     img.setAttribute("alt", "Door");
+	return img;
 }
 
 function gameOver() {
