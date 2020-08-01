@@ -17,6 +17,8 @@ const monsters = [
 
 function init() {
 
+    var monstersRemaining = monsters.length - 1;
+
     var board = document.getElementById("app");
     var table = document.createElement("table");
     board.appendChild(table);
@@ -39,6 +41,10 @@ function init() {
             }
             else {
                 event.target.src = monster;
+                monstersRemaining--;
+                if (monstersRemaining === 0) {
+                    won();
+                }
             }
         });
         cell.appendChild(img);
@@ -47,6 +53,16 @@ function init() {
 
 function gameOver() {
     alert("Sock! Game over! :(");
+}
+
+function won() {
+    alert("Congratulations! You found all the monsters");
+    var replay = confirm("Do you want to play again?");
+    if (replay === true) {
+        let board = document.getElementById("app");
+        board.innerHTML = "";
+        init();
+    }
 }
 
 window.onload = init;
