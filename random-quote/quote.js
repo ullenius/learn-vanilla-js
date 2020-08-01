@@ -2,12 +2,13 @@
 
 function init() {
 
+    const PATH = "http://localhost:3000/v2/quotes";
     var quote = document.getElementById("quote");
     var paragraph = document.createElement("p");
     quote.appendChild(paragraph);
 
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:3000/v2/quotes", true);
+    xhr.open("GET", PATH, true);
     xhr.send();
 
     xhr.onload = function callback() {
