@@ -19,14 +19,15 @@ function init() {
 
             const arr = [name, language, description];
             const article = createArticle(arr);
-            article.setAttribute("id", name);
+            article.setAttribute("id", repo.name);
+            console.log(article);
             app.appendChild(article);
 
             var commits = repo.commits_url;
             var index = commits.indexOf("{");
             var url = commits.substring(0, index);
             console.log(url);
-            displayCommits(name, url);
+            displayCommits(repo.name, url);
         }
     });
 }
@@ -42,6 +43,11 @@ function displayCommits(name, url) {
             var result = JSON.parse(xhr.responseText);
             var article = document.getElementById(name);
             for (let i = 0; i < 3; i++) {
+                let sha = paragraph(result[i].sha.substring(0,7));
+                let message = paragraph(result[i].commit.message);
+                article.appendChild(sha);
+                article.appendChild(message);
+
                 console.log(result[i].sha);
                 console.log(result[i].commit.message);
             }
@@ -50,10 +56,6 @@ function displayCommits(name, url) {
             console.log(xhr.status);
         }
     };
-}
-
-
-
 }
 
 function paragraph(text) {
