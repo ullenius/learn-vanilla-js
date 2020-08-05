@@ -31,6 +31,7 @@ function init() {
 
 function displayCommits(name, url) {
 
+    const SHA_LENGTH = 7;
     var xhr = new XMLHttpRequest();
     xhr.open("GET", url, true);
     xhr.send();
@@ -40,10 +41,10 @@ function displayCommits(name, url) {
             var result = JSON.parse(xhr.responseText);
             var article = document.getElementById(name);
             for (let i = 0; i < RECENT_COMMITS; i++) {
-                let sha = paragraph(result[i].sha.substring(0,7));
-                let message = paragraph(result[i].commit.message);
-                article.appendChild(sha);
-                article.appendChild(message);
+                let sha = result[i].sha.substring(0,SHA_LENGTH);
+                let message = result[i].commit.message;
+                let text = paragraph(sha + " : " + message);
+                article.appendChild(text);
             }
         } else {
             console.log("Something went wrong");
