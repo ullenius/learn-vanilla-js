@@ -2,10 +2,9 @@ import {repos} from "./repos.js";
 
 "use strict";
 
-function init() {
+const RECENT_COMMITS = 3;
 
-    console.log(repos.length);
-    console.log(repos[0]);
+function init() {
 
     var app = document.getElementById("app");
     
@@ -20,13 +19,11 @@ function init() {
             const arr = [name, language, description];
             const article = createArticle(arr);
             article.setAttribute("id", repo.name);
-            console.log(article);
             app.appendChild(article);
 
             var commits = repo.commits_url;
             var index = commits.indexOf("{");
             var url = commits.substring(0, index);
-            console.log(url);
             displayCommits(repo.name, url);
         }
     });
@@ -42,18 +39,15 @@ function displayCommits(name, url) {
         if (xhr.status === 200) {
             var result = JSON.parse(xhr.responseText);
             var article = document.getElementById(name);
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < RECENT_COMMITS; i++) {
                 let sha = paragraph(result[i].sha.substring(0,7));
                 let message = paragraph(result[i].commit.message);
                 article.appendChild(sha);
                 article.appendChild(message);
-
-                console.log(result[i].sha);
-                console.log(result[i].commit.message);
             }
         } else {
             console.log("Something went wrong");
-            console.log(xhr.status);
+            console.log("HTTP status: " + xhr.status);
         }
     };
 }
