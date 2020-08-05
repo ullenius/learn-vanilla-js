@@ -1,4 +1,3 @@
-import {repos} from "./repos.js";
 "use strict";
 
 const RECENT_COMMITS = 3;
@@ -7,7 +6,6 @@ const HTTP_OK = 200;
 
 function init() {
 
-    var app = document.getElementById("app");
     var xhr = ApiRequest(REPO_URL);
     xhr.send();
     xhr.onload = function callback() {
@@ -24,6 +22,8 @@ function init() {
 }
 
 function displayRepos(repos) {
+    
+    var app = document.getElementById("app");
 
     repos.forEach(function printRepo(repo) {
 
