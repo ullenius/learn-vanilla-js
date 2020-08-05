@@ -8,8 +8,7 @@ const HTTP_OK = 200;
 function init() {
 
     var app = document.getElementById("app");
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", REPO_URL, true);
+    var xhr = ApiRequest(REPO_URL);
     xhr.send();
     xhr.onload = function callback() {
 
@@ -50,8 +49,7 @@ function displayRepos(repos) {
 function displayCommits(name, url) {
 
     const SHA_LENGTH = 7;
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
+    var xhr = ApiRequest(url);
     xhr.send();
 
     xhr.onload = function callback() {
@@ -69,6 +67,12 @@ function displayCommits(name, url) {
             console.log("HTTP status: " + xhr.status);
         }
     };
+}
+
+function ApiRequest(url) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    return xhr;
 }
 
 function paragraph(text) {
