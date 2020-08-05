@@ -1,13 +1,31 @@
 import {repos} from "./repos.js";
-
 "use strict";
 
 const RECENT_COMMITS = 3;
+const REPO_URL = "https://api.github.com/users/ullenius/repos";
+const HTTP_OK = 200;
 
 function init() {
 
     var app = document.getElementById("app");
-    
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", REPO_URL, true);
+    xhr.send();
+    xhr.onload = function callback() {
+
+        if (xhr.status === HTTP_OK) {
+
+            var repos = JSON.parse(xhr.responseText);
+            displayRepos(repos);
+        } else {
+            console.log("Something went wrong fetching the repos :(");
+            console.log("HTTP status: " + xhr.status);
+        }
+    };
+}
+
+function displayRepos(repos) {
+
     repos.forEach(function printRepo(repo) {
 
         if (repo.fork === false) {
@@ -37,7 +55,7 @@ function displayCommits(name, url) {
     xhr.send();
 
     xhr.onload = function callback() {
-        if (xhr.status === 200) {
+        if (xhr.status === HTTP_OK) {
             var result = JSON.parse(xhr.responseText);
             var article = document.getElementById(name);
             for (let i = 0; i < RECENT_COMMITS; i++) {
