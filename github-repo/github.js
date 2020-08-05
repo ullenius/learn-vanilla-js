@@ -11,7 +11,6 @@ function init() {
     
     repos.forEach(function printRepo(repo) {
 
-
         if (repo.fork === false) {
 
             const name = header(repo.name);
@@ -20,9 +19,41 @@ function init() {
 
             const arr = [name, language, description];
             const article = createArticle(arr);
+            article.setAttribute("id", name);
             app.appendChild(article);
+
+            var commits = repo.commits_url;
+            var index = commits.indexOf("{");
+            var url = commits.substring(0, index);
+            console.log(url);
+            displayCommits(name, url);
         }
     });
+}
+
+function displayCommits(name, url) {
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", url, true);
+    xhr.send();
+
+    xhr.onload = function callback() {
+        if (xhr.status === 200) {
+            var result = JSON.parse(xhr.responseText);
+            var article = document.getElementById(name);
+            for (let i = 0; i < 3; i++) {
+                console.log(result[i].sha);
+                console.log(result[i].commit.message);
+            }
+        } else {
+            console.log("Something went wrong");
+            console.log(xhr.status);
+        }
+    };
+}
+
+
+
 }
 
 function paragraph(text) {
