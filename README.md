@@ -11,7 +11,7 @@ written by me.
 - [ ] Accordion
 - [ ] Find a Pet App
 - [X] [Countdown Timer App](https://ullenius.github.io/pomodoro/)
-- [X] [Checkbox Filters]
+- [X] Checkbox Filters
 - [X] Form Saver
 - [X] GitHub Repos
 - [X] Image Lazy Loader
