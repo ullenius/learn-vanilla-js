@@ -17,19 +17,6 @@ function init() {
     }
 }
 
-function readCache(name) {
-
-    var cache = localStorage.getItem(name);
-    if (cache !== null)
-        var saved = JSON.parse(cache);
-    return saved;
-}
-
-function saveCache(name, data) {
-    var json = JSON.stringify(data);
-    localStorage.setItem(name, json);
-}
-
 function fetchRepos() {
     var xhr = ApiRequest(REPO_URL);
     xhr.send();
@@ -101,6 +88,18 @@ function displayCommits(name, url) {
             article.appendChild(text);
         }
     }
+}
+
+function readCache(name) {
+    var cache = localStorage.getItem(name);
+    if (cache !== null)
+        var saved = JSON.parse(cache);
+    return saved;
+}
+
+function saveCache(name, data) {
+    var json = JSON.stringify(data);
+    localStorage.setItem(name, json);
 }
 
 function ApiRequest(url) {
