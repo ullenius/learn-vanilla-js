@@ -1,11 +1,8 @@
 "use strict";
 function plaintext(event) {
 
-    if (event.target.checked === true) {
-        passwordsVisible(true);
-    } else {
-        passwordsVisible(false);
-    }
+    var toggle = event.target.checked;
+    passwordsVisible(toggle);
 }
 
 function passwordsVisible(plaintext) {
